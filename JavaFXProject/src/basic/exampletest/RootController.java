@@ -1,7 +1,11 @@
-package basic.example;
+package basic.exampletest;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -58,10 +62,12 @@ public class RootController implements Initializable {
 		
 		
 		//--성적저장-----------------------------------------------------------------------
+		
+	
+		
 		list = FXCollections.observableArrayList();//list 생성
 		//list에 값 추가
-		tableView.setItems(list);
-		
+		tableView.setItems(list);	
 		list.add(new Student("test1",10,20,30));
 		list.add(new Student("test2",44,42,34));
 		
@@ -93,7 +99,39 @@ public class RootController implements Initializable {
 		
 	}//end of initialize 
 	
-	
+	//-------------------------------------------------------------------------------------------
+public Student[] getStudent() {//getStudent()를 호출하면 student테이블에 배열 반환
+		
+		Connection conn = DBConnection.getConnection();
+		Student[] students = new Student[100];
+		
+		try {
+			String sql = "select * from studnet2";
+			PreparedStatement pstmt =conn.prepareStatement(sql); //sql실행
+		    ResultSet rs =pstmt.executeQuery(); //pstmt sql구문 실행결과 받아서 rs(resultset에 담음)
+		    int idx = 0;
+		    while(rs.next()) {
+		    	Student stu = new Student();
+		    	stu.setId(rs.getInt("id"));
+		    	stu.setName(rs.getString("name"));
+		    	stu.setKorean(rs.getInt("korean"));
+		    	stu.setMath(rs.getInt("math"));
+		    	stu.setEnglish(rs.getInt("english"));
+
+		    	
+		    	students[idx++] = stu; //Student클래스 타입의 stu
+		    
+		    }
+		    System.out.println(" -- end of data --"); //반복문 끝나면 처리
+			} catch (SQLException e) {
+					e.printStackTrace();
+					
+//위 select~ 영역에서 예외가 발생할 경우에는 e.printStackTrace 실행하라는 의미
+	}
+		return students;
+}
+
+//-------------------------------------------------------------------------------------------
 	public void handleDoubleClickAction(String name) {
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);

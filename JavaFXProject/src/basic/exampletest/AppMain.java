@@ -1,4 +1,4 @@
-package basic.example;
+package basic.exampletest;
 //UI : Root.fxml(기본), AddForm.fxml (추가하는 화면) , BarChart.fxml(차트정보)
 //Control : RootController.java
 import javafx.application.Application;
