@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.yedam.database.DBConnection;
+import com.yedam.database.Employee;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,16 +51,19 @@ public class RootController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	
 		TableColumn<Student,?> tc = tableView.getColumns().get(0);//첫번째 칼럼 가지고옴
-		tc.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tc.setCellValueFactory(new PropertyValueFactory<>("id"));
 		//첫번째 칼럼 가져와서 name 필드에
 		
 		tc = tableView.getColumns().get(1);
-		tc.setCellValueFactory(new PropertyValueFactory<>("korean"));
+		tc.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		tc = tableView.getColumns().get(2);
-		tc.setCellValueFactory(new PropertyValueFactory<>("math"));
+		tc.setCellValueFactory(new PropertyValueFactory<>("korean"));
 		
 		tc = tableView.getColumns().get(3);
+		tc.setCellValueFactory(new PropertyValueFactory<>("math"));
+		
+		tc = tableView.getColumns().get(4);
 		tc.setCellValueFactory(new PropertyValueFactory<>("english"));
 		
 		
@@ -65,11 +71,11 @@ public class RootController implements Initializable {
 		
 	
 		
-		list = FXCollections.observableArrayList();//list 생성
+    	list = getStudent() ;//list 생성
 		//list에 값 추가
 		tableView.setItems(list);	
-		list.add(new Student("test1",10,20,30));
-		list.add(new Student("test2",44,42,34));
+
+		
 		
 		//추가버튼
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
@@ -100,10 +106,10 @@ public class RootController implements Initializable {
 	}//end of initialize 
 	
 	//-------------------------------------------------------------------------------------------
-public Student[] getStudent() {//getStudent()를 호출하면 student테이블에 배열 반환
+public ObservableList<Student> getStudent() {//getStudent()를 호출하면 student테이블에 배열 반환
 		
 		Connection conn = DBConnection.getConnection();
-		Student[] students = new Student[100];
+		ObservableList<Student> student = FXCollections.observableArrayList();
 		
 		try {
 			String sql = "select * from studnet2";
@@ -111,16 +117,11 @@ public Student[] getStudent() {//getStudent()를 호출하면 student테이블�
 		    ResultSet rs =pstmt.executeQuery(); //pstmt sql구문 실행결과 받아서 rs(resultset에 담음)
 		    int idx = 0;
 		    while(rs.next()) {
-		    	Student stu = new Student();
-		    	stu.setId(rs.getInt("id"));
-		    	stu.setName(rs.getString("name"));
-		    	stu.setKorean(rs.getInt("korean"));
-		    	stu.setMath(rs.getInt("math"));
-		    	stu.setEnglish(rs.getInt("english"));
-
-		    	
-		    	students[idx++] = stu; //Student클래스 타입의 stu
+		    	Student stu = new Student(rs.getInt("ID"), rs.getString("NAME"), rs.getInt("KOREAN"),
+		                  rs.getInt("MATH"), rs.getInt("ENGLISH"));
 		    
+		    	student.add(stu);
+		 
 		    }
 		    System.out.println(" -- end of data --"); //반복문 끝나면 처리
 			} catch (SQLException e) {
@@ -128,8 +129,29 @@ public Student[] getStudent() {//getStudent()를 호출하면 student테이블�
 					
 //위 select~ 영역에서 예외가 발생할 경우에는 e.printStackTrace 실행하라는 의미
 	}
-		return students;
+		return student;
 }
+
+
+public void addStudent(Student stu) { 
+	Connection conn = DBConnection.getConnection();//db연결
+	String sql = "insert into STUDNET2(ID, NAME, KOREAN, ENGLISH,MATH)"
+			+ "values(STUSQ.NEXTVAL"+",\'"
+							+stu.getName()+"\',\'"
+							+stu.getKorean()+"\',\'"
+							+stu.getMath()+"\',\'"
+							+stu.getEnglish()
+							+"\')";
+	System.out.println(sql);
+	try {
+		PreparedStatement psmt = conn.prepareStatement(sql);
+		int r = psmt.executeUpdate();
+		System.out.println(r+"건 입력되었습니다");
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}
+}
+
 
 //-------------------------------------------------------------------------------------------
 	public void handleDoubleClickAction(String name) {
@@ -141,7 +163,7 @@ public Student[] getStudent() {//getStudent()를 호출하면 student테이블�
 		ap.setPrefSize(210, 230);//컨테이너 크기 지정
 		
 		
-		Label lKorean, lMath, lEnglish;
+		Label  lKorean, lMath, lEnglish;
 		TextField tName, tKorean, tMath, tEnglish;
 		
 		lKorean = new Label("국어");
@@ -196,25 +218,25 @@ public Student[] getStudent() {//getStudent()를 호출하면 student테이블�
 
 	});
 	
-	btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			for(int i=0; i<list.size(); i++) {
-				if(list.get(i).getName().equals(name)) {
-					Student student = new Student(name, Integer.parseInt(tKorean.getText()),
-							Integer.parseInt(tMath.getText()),
-									Integer.parseInt(tEnglish.getText())
-									);
-									list.set(i, student);
-				}
-			}
-			
-		}
-		
-		
-	});
-	
+//	btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
+//
+//		@Override
+//		public void handle(ActionEvent event) {
+//			for(int i=0; i<list.size(); i++) {
+//				if(list.get(i).getName().equals(name)) {
+//					Student student = new Student(name, Integer.parseInt(tKorean.getText()),
+//							Integer.parseInt(tMath.getText()),
+//									Integer.parseInt(tEnglish.getText())
+//									);
+//									list.set(i, student);
+//				}
+//			}
+//			
+//		}
+//		
+//		
+//	});
+//	
 	
 	//이름기준으로 국어, 수학, 영어점수를 화면에 뿌려주기.
 	for(Student stu : list) {
@@ -338,16 +360,19 @@ public Student[] getStudent() {//getStudent()를 호출하면 student테이블�
 				public void handle(ActionEvent event) {
 					
 //--------------------------------추가화면에 있는 저장(Add)버튼.--------------------------------
+					TextField txtId = (TextField) parent.lookup("#txtId");
 					TextField txtName = (TextField) parent.lookup("#txtName");
 					TextField txtKorean = (TextField) parent.lookup("#txtKorean");
 					TextField txtMath = (TextField) parent.lookup("#txtMath");
 					TextField txtEnglish = (TextField) parent.lookup("#txtEnglish");
 					Student student = new Student(
-					txtName.getText(),
-					Integer.parseInt(txtKorean.getText()),
-					Integer.parseInt(txtMath.getText()),
-					Integer.parseInt(txtEnglish.getText())	);
+							Integer.parseInt(txtId.getText()),
+							txtName.getText(),
+							Integer.parseInt(txtKorean.getText()),
+							Integer.parseInt(txtMath.getText()),
+							Integer.parseInt(txtEnglish.getText()));
 					
+		           
 					list.add(student);
 					
 					stage.close();

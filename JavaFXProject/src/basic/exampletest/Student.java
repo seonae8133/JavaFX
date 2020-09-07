@@ -12,8 +12,9 @@ public class Student {
 	private SimpleIntegerProperty english;
 	
 	public Student() {}
-	public Student( String name, int korean, int math,int english) {
-//		this.id = new SimpleIntegerProperty(id);
+	
+	public Student( int id,String name, int korean, int math,int english) {
+		this.id = new SimpleIntegerProperty(id);
 		this.name = new SimpleStringProperty(name);
 		this.korean = new SimpleIntegerProperty(korean);
 		this.math =  new SimpleIntegerProperty(math);
@@ -28,7 +29,7 @@ public class Student {
 	public int getId() {
 		return this.id.get();
 	}
-	
+
 	//---------------------------------------------------------------
 	public void setName(String name) {
 		this.name.set(name);

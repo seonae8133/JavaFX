@@ -296,6 +296,7 @@ public class RootController implements Initializable {
 			//추가화면의 컨트롤 사용하기
 			Button btnFormAdd = (Button) parent.lookup("#btnFormAdd");//lookup함수 : 해당되는 아이디 값을 찾아옴
 			btnFormAdd.setOnAction(new EventHandler<ActionEvent>() {
+				
 				@Override
 				public void handle(ActionEvent event) {
 					
