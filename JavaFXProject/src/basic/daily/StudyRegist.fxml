@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.DatePicker?>
+
+<AnchorPane prefHeight="380.0" prefWidth="200.0" style="-fx-background-color: #dbf3df;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basic.daily.StudentController">
+   <children>
+      <Label layoutX="154.0" layoutY="13.0" text="스터디 회원 등록" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri Bold Italic" size="13.0" />
+         </font></Label>
+      <Label layoutX="46.0" layoutY="59.0" text="회원번호" />
+      <Label layoutX="46.0" layoutY="91.0" text="회원이름" />
+      <Label layoutX="46.0" layoutY="123.0" text="가입날짜" />
+      <Label layoutX="58.0" layoutY="188.0" text="나이" />
+      <Label layoutX="52.0" layoutY="158.0" text="연락처" />
+      <Label layoutX="58.0" layoutY="200.0" text="성별">
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </Label>
+      <TextField layoutX="131.0" layoutY="55.0" prefHeight="23.0" prefWidth="101.0" />
+      <TextField layoutX="131.0" layoutY="87.0" />
+      <DatePicker layoutX="131.0" layoutY="121.0" />
+      <TextField layoutX="131.0" layoutY="154.0" />
+      <TextField layoutX="131.0" layoutY="184.0" prefHeight="23.0" prefWidth="48.0" />
+     <ComboBox fx:id="comboPublic" layoutX="129.0" layoutY="217.0" prefHeight="23.0" prefWidth="66.0" promptText="선택">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<String fx:value="여자" />
+				<String fx:value="남자" />
+			</FXCollections>
+		</items>
+      </ComboBox>
+      <Button layoutX="134.0" layoutY="325.0" mnemonicParsing="false" text="등록" />
+      <Button layoutX="212.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleBtnCancelAction" text="취소" />
+      <Separator layoutX="57.0" layoutY="296.0" prefWidth="350.0" />
+      <Label layoutX="52.0" layoutY="253.0" text="특이사항" />
+      <TextField layoutX="126.0" layoutY="249.0" />
+   </children>
+</AnchorPane>

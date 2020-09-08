@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="basic.daily.StudentController">
+	<center>
+		<TableView fx:id="tableView" prefWidth="520" prefHeight="300" >
+			<columns>
+				<TableColumn prefWidth="100" resizable="false" text="회원번호" />
+				<TableColumn prefWidth="100" resizable="false" text="회원이름" />
+				<TableColumn prefWidth="100" resizable="false" text="회원연락처" />
+				<TableColumn prefWidth="100" resizable="false" text="특이사항" />
+			</columns>
+		</TableView>
+	</center>
+	<bottom>
+		<HBox prefHeight="50" alignment="CENTER">
+			<children>
+				<Button fx:id="btnAdd" text="회원추가" onAction="#handleBtnAddAction"/>
+				<Button fx:id="btnExit" text="프로그램종료" onAction="#handleBtnExit"/>
+			</children>
+		</HBox>
+	</bottom>
+</BorderPane>
+
