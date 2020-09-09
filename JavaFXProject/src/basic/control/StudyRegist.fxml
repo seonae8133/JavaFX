@@ -28,11 +28,11 @@
             <Insets top="20.0" />
          </padding>
       </Label>
-      <TextField layoutX="131.0" layoutY="55.0" prefHeight="23.0" prefWidth="101.0" />
-      <TextField layoutX="131.0" layoutY="87.0" />
+      <TextField layoutX="131.0" layoutY="55.0" prefHeight="23.0" prefWidth="101.0" text="w" />
+      <TextField layoutX="131.0" layoutY="87.0" text="w" />
       <DatePicker layoutX="131.0" layoutY="121.0" />
-      <TextField layoutX="131.0" layoutY="154.0" />
-      <TextField layoutX="131.0" layoutY="184.0" prefHeight="23.0" prefWidth="48.0" />
+      <TextField layoutX="131.0" layoutY="154.0" text="w" />
+      <TextField layoutX="131.0" layoutY="184.0" prefHeight="23.0" prefWidth="48.0" text="w" />
      <ComboBox fx:id="comboPublic" layoutX="129.0" layoutY="217.0" prefHeight="23.0" prefWidth="66.0" promptText="선택">
 		<items>
 			<FXCollections fx:factory="observableArrayList">
@@ -45,6 +45,6 @@
       <Button layoutX="212.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleBtnCancelAction" text="취소" />
       <Separator layoutX="57.0" layoutY="296.0" prefWidth="350.0" />
       <Label layoutX="52.0" layoutY="253.0" text="특이사항" />
-      <TextField layoutX="126.0" layoutY="249.0" />
+      <TextField layoutX="126.0" layoutY="249.0" text="w" />
    </children>
 </AnchorPane>

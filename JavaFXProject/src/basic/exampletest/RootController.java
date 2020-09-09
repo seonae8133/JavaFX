@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.yedam.database.DBConnection;
-import com.yedam.database.Employee;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
